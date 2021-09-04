@@ -1,2 +1,3 @@
-# action-request-review
-Github Action to request code review.
+# Github Action: Request Review
+
+Github action to request code review.
