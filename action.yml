@@ -1,0 +1,21 @@
+name: 'Request Code Review'
+description: 'Github Action to request code review.'
+
+inputs:
+  token:
+    description: 'Authentication token to access the project repositories'
+    required: true
+
+  release:
+    description: 'Project release to review'
+    required: true
+
+  type:
+    description: 'Type of code review, [s]ynchronous or [a]synchronous'
+    required: true
+    default: 'synchronous'
+
+runs:
+  using: 'node12'
+  pre: 'setup.js'
+  main: 'index.js'
