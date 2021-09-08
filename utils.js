@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('@actions/exec');
-// const cache = require('@actions/cache');
 const style = require('ansi-styles');
 
 exports.warnings = 0; // track warnings
