@@ -185,50 +185,6 @@ exports.checkExec = async function(command, settings) {
   return result;
 };
 
-// exports.cacheMaven = async function(path) {
-//   core.startGroup(`Checking for Maven cache...`);
-//
-//   core.info('\nHashing pom.xml file...');
-//   let hash = '';
-//   const sha256 = await exec.exec('sha256sum',
-//     [`${path}/pom.xml`], {
-//       ignoreReturnCode: true,
-//       listeners: {
-//         stdout: (data) => {hash += data.toString();}
-//       }
-//     });
-//
-//   if (sha256 !== 0) {
-//     exports.showWarning(`Unable to hash ${path}/pom.xml file (${sha256}).`);
-//     return undefined;
-//   }
-//
-//   const runner = process.env.RUNNER_OS; // not documented
-//   const mavenKey = `${runner}-m2-${hash.split(' ')[0]}`;
-//
-//   core.info(`\nAttempting to restore Maven cache...`);
-//   const mavenCache = await cache.restoreCache(
-//     ['~/.m2'],         // paths to restore
-//     mavenKey,          // current key
-//     [`${runner}-m2-`]  // other keys to restore
-//   );
-//
-//   core.info(`Returned cache: ${mavenCache}`);
-//
-//   core.info('');
-//   core.endGroup();
-//
-//   // check for warnings AFTER ending group
-//   if (!mavenCache) {
-//     exports.showWarning(`Unable to restore cache: ${mavenKey}`);
-//   }
-//
-//   return {
-//     mavenKey: mavenKey,
-//     mavenCache: mavenCache
-//   };
-// }
-
 // OCTOKIT HELPER FUNCTIONS
 
 exports.verifyRelease = async function(octokit, context, release) {

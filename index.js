@@ -44,18 +44,6 @@ async function run() {
     core.endGroup();
     // -----------------------------------------------
 
-    // // -----------------------------------------------
-    // core.startGroup('Updating Maven dependencies...');
-    //
-    // status.maven = await utils.checkExec('mvn', {
-    //   param: ['-f', `${utils.mainDir}/pom.xml`, '-ntp', 'dependency:go-offline'],
-    //   error: 'Updating returned non-zero exit code',
-    // });
-    //
-    // core.info('');
-    // core.endGroup();
-    // // -----------------------------------------------
-
     utils.showTitle('Request Verify Phase');
 
     // -----------------------------------------------
@@ -90,14 +78,6 @@ async function run() {
     if (status.todoGrep != 1) {
       throw new Error('One or more TODO comments found. Please clean up the code before requesting code review.');
     }
-
-    // status.todoAwk = await utils.checkExec('awk', {
-    //   param: ["BEGIN { FS=\"/*\"; RS=\"*/\" } { if ($2 ~ /TODO/) { print $2 }}"],
-    //   title: 'Checking for multiline TODO comments',
-    //   chdir: `${utils.mainDir}/src/main/java`
-    // });
-
-    // awk 'BEGIN { FS="/*"; RS="*/" } { if ($2 ~ /TODO/) { print $2 }}'
 
     status.mainGrep = await utils.checkExec('grep', {
       param: ['-rnoiE', '--exclude=Driver.java', '\\s*public\\s+static\\s+void\\s+main\\s*\\(', '.'],
@@ -289,7 +269,7 @@ ${reviewList}
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       pull_number: pullRequest.data.number,
-      reviewers: ['sjengle']
+      reviewers: ['mtquach2', 'ybsolomon']
     };
 
     const reviewRequest = await octokit.pulls.requestReviewers(reviewers);
@@ -344,7 +324,7 @@ We will reply with further instructions. If we do not respond within 2 *business
     const success = `${states.type} code review request #${pullRequest.data.number} for project ${states.project} release ${states.releaseTag} created. Visit the pull request for further instructions at: ${pullRequest.data.html_url}`;
 
     utils.showSuccess(success);
-    core.warning(success);
+    core.notice(success);
   }
   catch (error) {
     utils.showError(`${error.message}\n`); // show error in group

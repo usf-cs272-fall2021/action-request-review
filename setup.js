@@ -166,10 +166,6 @@ async function run() {
     const branch = await prepareBranch(token, github.context, states.version);
     states.branch = branch;
 
-    // setup maven cache
-    // const cache = await utils.cacheMaven(utils.mainDir);
-    // Object.assign(states, cache);
-
     // save states
     utils.saveStates(states);
   }
