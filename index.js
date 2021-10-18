@@ -185,7 +185,7 @@ async function run() {
         });
 
         const approved = reviews.data.filter(x => x.state == "APPROVED");
-        const approvals = approved.map(x => `@${x.user.login}`).join(', ');
+        const approvals = approved.map(x => `${x.user.login}`).join(', ');
 
         rows.push(`| [#${pull.number}](${pull.html_url}) | ${status} | ${labels} | ${approvals} | ${createdDate} | ${closedDate} |`);
       }
