@@ -223,17 +223,22 @@ exports.verifyRelease = async function(octokit, context, release) {
     core.info('Listing workflow runs...');
     const result = await octokit.actions.listWorkflowRuns({
       owner: owner,
-      repo: repo,
-      workflow_id: 'run-tests.yml',
-      event: 'release'
+      repo: repo//,
+// TODO Changed due to Action indexing issue
+//      workflow_id: 'run-tests.yml', 
+//      event: 'release'
     });
 
     if (result.status != 200) {
       core.info(JSON.stringify(result));
       throw new Error(`${result.status} exit code`);
     }
+    
+    // TODO Changed due to Action indexing issue
+    const filtered = result.data.workflow_runs.filter(r => r.event === "release" && r.name === "Run Project Tests");
 
-    const branches = result.data.workflow_runs.map(r => r.head_branch);
+    //const branches = result.data.workflow_runs.map(r => r.head_branch);
+    const branches = filtered.map(r => r.head_branch);
     core.info(`Found Runs: ${branches.join(', ')}`);
 
     let found = result.data.workflow_runs.find(r => r.head_branch === release);
