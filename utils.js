@@ -223,9 +223,9 @@ exports.verifyRelease = async function(octokit, context, release) {
     core.info('Listing workflow runs...');
     const result = await octokit.actions.listWorkflowRuns({
       owner: owner,
-      repo: repo//,
-// TODO Changed due to Action indexing issue
-//      workflow_id: 'run-tests.yml', 
+      repo: repo,
+      workflow_id: 'run-tests.yml'//, 
+      // TODO Changed due to Action indexing issue
 //      event: 'release'
     });
 
