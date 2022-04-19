@@ -234,11 +234,7 @@ exports.verifyRelease = async function(octokit, context, release) {
       throw new Error(`${result.status} exit code`);
     }
     
-    // TODO Changed due to Action indexing issue
-    const filtered = result.data.workflow_runs.filter(r => r.event === "release" && r.name === "Run Project Tests");
-
-    //const branches = result.data.workflow_runs.map(r => r.head_branch);
-    const branches = filtered.map(r => r.head_branch);
+    const branches = result.data.workflow_runs.map(r => r.head_branch);
     core.info(`Found Runs: ${branches.join(', ')}`);
 
     let found = result.data.workflow_runs.find(r => r.head_branch === release);
